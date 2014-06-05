@@ -2,10 +2,7 @@
 
 [![NPM](https://nodei.co/npm/slush-reveal.png?downloads=true&stars=true)](https://nodei.co/npm/slush-reveal/)
 
-> A framework for easily creating beautiful presentations using HTML.
-
-## Work in Progress
-
+> A Slush Generator for creating Revealjs presentation.
 
 ## Getting Started
 
@@ -36,6 +33,16 @@ Run the generator from within the new folder:
 ```bash
 $ cd my-slush-reveal && slush reveal
 ```
+
+You can pick from a
+- A Basic Setup : `"I would like to use the default options and build a presentation"`
+- A Dev Setup : `"I would like to modify the source & theme and build a presentation"`
+
+
+## TODOS
+- [ ] add sub-gens to add various types of slides
+- [ ] add sub-gen to export as PDF
+- [ ] add sub-gen to push the presentation to Github pages
 
 ## Getting To Know Slush
 

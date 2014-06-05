@@ -8,7 +8,8 @@
 
 'use strict';
 
-var gulp = require('gulp'),
+var path = require('path'),
+    gulp = require('gulp'),
     install = require('gulp-install'),
     conflict = require('gulp-conflict'),
     template = require('gulp-template'),
@@ -20,36 +21,59 @@ gulp.task('default', function (done) {
     var prompts = [{
         type: 'input',
         name: 'appName',
-        message: 'What is the name of your generator?',
-        default: gulp.args.join(' ')
+        message: 'What is the name of your presentation?',
+        default: path.basename(process.cwd())
     }, {
-        type: 'input',
-        name: 'appDescription',
-        message: 'What is the description for your generator?'
-    }, {
-        type: 'confirm',
-        name: 'moveon',
-        message: 'Continue?'
-    }];
+        type: 'list',
+        name: 'setupType',
+        message: 'What type of setup do you want?',
+        choices: [{
+            name: "I would like to use the default options and build a presentation",
+            value: "basic"
+          }, {
+            name: "I would like to modify the source & theme and build a presentation",
+            value: "dev"
+          }
+        ],
+        default: 'basic'
+      }];
     //Ask
     inquirer.prompt(prompts,
         function (answers) {
-            if (!answers.moveon) {
+            if (!answers) {
                 return done();
             }
             answers.appNameSlug = _.slugify(answers.appName);
-            gulp.src(__dirname + '/templates/**')
-                .pipe(template(answers))
-                .pipe(rename(function (file) {
-                    if (file.basename[0] === '_') {
-                        file.basename = '.' + file.basename.slice(1);
-                    }
-                }))
-                .pipe(conflict('./'))
-                .pipe(gulp.dest('./'))
-                .pipe(install())
-                .on('end', function () {
-                    done();
-                });
+            if(answers.setupType == "dev")
+            {
+                gulp.src(__dirname + '/templates/dev/**')
+                    .pipe(rename(function (file) {
+                        if (file.basename[0] === '_') {
+                            file.basename = '.' + file.basename.slice(1);
+                        }
+                    }))
+                    .pipe(conflict('./'))
+                    .pipe(gulp.dest('./'))
+                    .pipe(install())
+                    .on('end', function () {
+                        done();
+                    });
+            }
+
+            if(answers.setupType == "basic")
+            {
+                gulp.src(__dirname + '/templates/basic/**')
+                    .pipe(rename(function (file) {
+                        if (file.basename[0] === '_') {
+                            file.basename = '.' + file.basename.slice(1);
+                        }
+                    }))
+                    .pipe(conflict('./'))
+                    .pipe(gulp.dest('./'))
+                    .pipe(install())
+                    .on('end', function () {
+                        done();
+                    });
+            }
         });
 });
