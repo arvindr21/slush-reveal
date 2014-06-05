@@ -38,6 +38,27 @@ You can pick from a
 - A Basic Setup : `"I would like to use the default options and build a presentation"`
 - A Dev Setup : `"I would like to modify the source & theme and build a presentation"`
 
+## Usage
+### Basic setup
+
+You can launch `index.html` directly to view the presentation.
+
+### Dev setup
+
+You can launcg the app by running
+```bash
+$ gulp serve
+```
+
+To build the theme files from SASS, you can run
+```bash
+$ gulp themes
+```
+
+To zip the presentation for deployment run
+```bash
+$ gulp package
+```
 
 ## TODOS
 - [ ] add sub-gens to add various types of slides
