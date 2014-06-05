@@ -109,7 +109,7 @@ gulp.task('zip', function () {
 });
 
 gulp.task('watch', function () {
-  gulp.watch([ 'gulpFile.js', 'js/reveal.js', 'css/reveal.css' ], ['default']);
+  gulp.watch([ 'gulpFile.js', 'js/reveal.js', 'css/reveal.css' ], ['themes','jshint', 'html']);
   gulp.watch([ 'css/theme/source/*.scss', 'css/theme/template/*.scss' ], ['themes']);
 });
 
